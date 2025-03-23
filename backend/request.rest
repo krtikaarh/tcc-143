@@ -1,0 +1,27 @@
+GET http://localhost:5000/api/notes HTTP/1.1
+Content-Type: application/json
+
+### Get Note Berdasarkan ID
+GET http://localhost:5000/api/notes/2 HTTP/1.1
+Content-Type: application/json
+
+### Create Note Baru
+POST http://localhost:5000/api/notes HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Catatan Pertama",
+    "content": "Ini adalah isi catatan pertama saya."
+}
+
+### Update Note Berdasarkan ID
+PUT http://localhost:5000/api/notes/10 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Catatan Diperbarui",
+    "content": "Isi catatan ini sudah diperbarui."
+}
+
+### Hapus Note Berdasarkan ID
+DELETE http://localhost:5000/api/notes/8 HTTP/1.1
