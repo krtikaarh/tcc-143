@@ -1,0 +1,14 @@
+ runtime: nodejs20  # Menggunakan runtime standar untuk hosting HTML statis
+ service: notes-143-fe  # Nama layanan App Engine, bisa diubah sesuai kebutuhan
+ instance_class: F1  
+
+ handlers:
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+
+  - url: /(.*)
+    static_files: dist/\1
+    upload: dist/(.*)
+
+ default_expiration: "1h"  # Waktu cache default
