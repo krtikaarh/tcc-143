@@ -1,22 +1,9 @@
 runtime: nodejs20
-service: notes-143-fe
+service: tgs6-fe  # ganti nama service kalau mau
 instance_class: F1
 
 handlers:
-  - url: /static/(.*)
-    static_files: dist/static/\1
-    upload: dist/static/(.*)
-
-  - url: /favicon.ico
-    static_files: dist/favicon.ico
-    upload: dist/favicon.ico
-
-  # Tambahan ini penting!
   - url: /
-    static_files: dist/index.html
-    upload: dist/index.html
-
-  - url: /index.html
     static_files: dist/index.html
     upload: dist/index.html
 
