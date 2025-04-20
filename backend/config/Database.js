@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize("webnotes", "root", "", {
-  host: "34.60.175.254",
+const db = new Sequelize("webnotes", "root", " ", {
   dialect: "mysql",
-  port: 3306,
+  dialectOptions: {
+    socketPath: "/cloudsql/mimetic-sweep-450606-j0:us-central1:tcc",
+  },
   logging: false,
 });
 
