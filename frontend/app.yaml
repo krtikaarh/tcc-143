@@ -1,14 +1,26 @@
- runtime: nodejs20  # Menggunakan runtime standar untuk hosting HTML statis
- service: notes-143-fe  # Nama layanan App Engine, bisa diubah sesuai kebutuhan
- instance_class: F1  
+runtime: nodejs20  # Menggunakan runtime standar untuk hosting HTML statis
+service: notes-143-fe  # Nama layanan App Engine, bisa diubah sesuai kebutuhan
+instance_class: F1  # Menggunakan kelas instance ringan
 
- handlers:
-  - url: /
+handlers:
+  # Untuk menangani file statis seperti JS, CSS, gambar, dll.
+  - url: /static/(.*)
+    static_files: dist/static/\1
+    upload: dist/static/(.*)
+
+  # Untuk menangani request ke root dan halaman lainnya
+  - url: /favicon.ico
+    static_files: dist/favicon.ico
+    upload: dist/favicon.ico
+
+  # Menangani halaman utama (index.html)
+  - url: /index.html
     static_files: dist/index.html
     upload: dist/index.html
 
+  # Menangani request lainnya (untuk routing React jika diperlukan)
   - url: /(.*)
     static_files: dist/\1
     upload: dist/(.*)
 
- default_expiration: "1h"  # Waktu cache default
+default_expiration: "1h"  # Waktu cache default
