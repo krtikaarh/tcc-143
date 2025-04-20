@@ -25,6 +25,8 @@ steps:
         "--region",
         "us-central1",
         "--allow-unauthenticated",
+        "--add-cloudsql-instances",
+        "mimetic-sweep-450606-j0:us-central1:tcc",   
         "--set-env-vars",
         "CLOUD_SQL_CONNECTION_NAME=mimetic-sweep-450606-j0:us-central1:tcc,DB_USER=root,DB_PASSWORD=,DB_NAME=webnotes"
       ]
