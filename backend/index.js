@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import route from './routes/UserRoutes.js';
+import route from './routes/UserRoute.js';
 
 const app = express();
 const port = process.env.PORT | 5000;
