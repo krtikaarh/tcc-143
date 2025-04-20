@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize("webnotes", "root", "", {
-  host: "34.60.175.254",
+const db = new Sequelize("RECOVER_YOUR_DATA", "root", "", {
+  host: "34.69.50.38",
   dialect: "mysql",
 });
 
