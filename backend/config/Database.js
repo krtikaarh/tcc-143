@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize("webnotes", "root", " ", {
+// Gunakan variabel lingkungan yang sudah diset di Cloud Run
+const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   dialect: "mysql",
   dialectOptions: {
-    socketPath: "/cloudsql/mimetic-sweep-450606-j0:us-central1:tcc",
+    socketPath: `/cloudsql/${process.env.CLOUD_SQL_CONNECTION_NAME}`,  // Menggunakan socket path Cloud SQL
   },
   logging: false,
 });
