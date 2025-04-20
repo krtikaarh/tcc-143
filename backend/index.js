@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use("/api", NoteRoutes);
 
 const PORT = process.env.PORT || 5000;
+console.log("PORT:", PORT);
 
 const startServer = async () => {
     try {
