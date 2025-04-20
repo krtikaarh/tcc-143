@@ -17,9 +17,9 @@ console.log("PORT:", PORT);
 const startServer = async () => {
     try {
         console.log("Mencoba koneksi ke database...");
-        await db.authenticate();
+        //await db.authenticate();
         console.log("Database connected...");
-        await db.sync(); // Sinkronisasi model ke database
+        //await db.sync(); // Sinkronisasi model ke database
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
         console.error("Connection error:", error);
