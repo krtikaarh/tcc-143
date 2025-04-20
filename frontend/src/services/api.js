@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Buat instance axios dengan URL dasar
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://notes-143-be-353267785618.us-central1.run.app',
   headers: {
     'Content-Type': 'application/json',
   },
