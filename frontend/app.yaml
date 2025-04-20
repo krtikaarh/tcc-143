@@ -1,9 +1,13 @@
 runtime: nodejs20
-service: tgs6-fe  # ganti nama service kalau mau
+service: tgs6-fe
 instance_class: F1
 
 handlers:
-  - url: /(.*)
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+
+  - url: /.*
     static_dir: dist
 
 default_expiration: "1h"
