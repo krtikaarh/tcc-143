@@ -11,12 +11,14 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", NoteRoutes);
 
+const PORT = process.env.PORT || 5000;
+
 const startServer = async () => {
     try {
         await db.authenticate();
         console.log("Database connected...");
         await db.sync(); // Sinkronisasi model ke database
-        app.listen(5000, () => console.log("Server running on port 5000"));
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
         console.error("Connection error:", error);
     }
