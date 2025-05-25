@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: tgs7-fe  # ganti nama service kalau mau
+service: tgs7-fe  
 instance_class: F1
 
 handlers:

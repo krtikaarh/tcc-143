@@ -15,18 +15,8 @@ const port = process.env.PORT || 8080;
 app.get('/', (req, res) => {
     res.json({
         message: 'API is running ✅',
-        status: 'healthy',
         timestamp: new Date().toISOString(),
-        endpoints: {
-            auth: '/api/login, /api/register',
-            notes: '/api/notes'
-        }
     });
-});
-
-// Health check endpoint tambahan
-app.get('/health', (req, res) => {
-    res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
 app.use(cors());
@@ -42,13 +32,6 @@ db.authenticate()
 app.use('*', (req, res) => {
     res.status(404).json({
         message: 'Endpoint not found',
-        availableEndpoints: {
-            root: '/',
-            health: '/health',
-            login: 'POST /api/login',
-            register: 'POST /api/register',
-            notes: 'GET /api/notes'
-        }
     });
 });
 
