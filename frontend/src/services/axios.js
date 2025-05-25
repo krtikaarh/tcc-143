@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Axios dengan interceptor (untuk endpoint yang butuh token)
 export const apiWithAuth = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://notes-143-be-353267785618.us-central1.run.app',
+  baseURL: process.env.REACT_APP_API_URL || 'https://notes-143-be-353267785618.us-central1.run.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -20,7 +20,7 @@ apiWithAuth.interceptors.request.use((config) => {
 
 // Axios tanpa interceptor (untuk login/register)
 export const apiPublic = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://notes-143-be-353267785618.us-central1.run.app',
+  baseURL: process.env.REACT_APP_API_URL || 'https://notes-143-be-353267785618.us-central1.run.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
