@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { loginUser } from "../services/api";
-import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,7 +14,7 @@ function LoginPage() {
       const res = await loginUser(form);
       localStorage.setItem("token", res.token);
       alert("Login berhasil!");
-      navigate("/"); 
+      window.location.href = "/";
     } catch (err) {
       setError(err.response?.data?.message || "Login gagal");
     }

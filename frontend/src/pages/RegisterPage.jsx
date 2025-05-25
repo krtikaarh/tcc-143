@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { registerUser } from "../services/api";
-import { Link, useNavigate } from "react-router-dom";
+
 
 function RegisterPage() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,7 +16,6 @@ function RegisterPage() {
       await registerUser(form);
       setSuccess("Registrasi berhasil. Silakan login.");
       setError("");
-      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       setError(err.response?.data?.message || "Registrasi gagal");
       setSuccess("");

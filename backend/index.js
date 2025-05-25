@@ -10,7 +10,24 @@ dotenv.config();
 
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
+
+app.get('/', (req, res) => {
+    res.json({
+        message: 'API is running ✅',
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        endpoints: {
+            auth: '/api/login, /api/register',
+            notes: '/api/notes'
+        }
+    });
+});
+
+// Health check endpoint tambahan
+app.get('/health', (req, res) => {
+    res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
 
 app.use(cors());
 app.use(express.json());
@@ -22,10 +39,19 @@ db.authenticate()
   .then(() => console.log("✅ Database connected"))
   .catch((err) => console.error("❌ Database connection error:", err));
 
-app.get('/', (req, res) => {
-    res.send('API is running ✅');
+app.use('*', (req, res) => {
+    res.status(404).json({
+        message: 'Endpoint not found',
+        availableEndpoints: {
+            root: '/',
+            health: '/health',
+            login: 'POST /api/login',
+            register: 'POST /api/register',
+            notes: 'GET /api/notes'
+        }
+    });
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${port}`);
 });
