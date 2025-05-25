@@ -1,135 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
-import NoteForm from './components/NoteForm';
-import NoteList from './components/NoteList';
-import { layananCatatan } from './services/api';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Dashboard from './pages/Dashboard'; // ini adalah App lama kamu (catatan)
 
-function App() {
-  const [view, setView] = useState('list'); 
-  const [catatan, setCatatan] = useState([]);
-  const [activeCatatan, setActiveCatatan] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    ambilSemuaCatatan();
-  }, []);
-
-  const ambilSemuaCatatan = async () => {
-    try {
-      setLoading(true);
-      const data = await layananCatatan.ambilSemuaCatatan();
-      setCatatan(data);
-      setError(null);
-    } catch (err) {
-      setError('Gagal memuat catatan');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleNewNote = () => {
-    setActiveCatatan(null);
-    setView('new');
-  };
-
-  const handleViewNotes = () => {
-    setView('list');
-  };
-
-  const handleSelectCatatan = (selectedCatatan) => {
-    setActiveCatatan(selectedCatatan);
-    setView('edit');
-  };
-
-  const handleSaveCatatan = async (dataCatatan) => {
-    try {
-      setLoading(true);
-      if (dataCatatan.id) {
-        // Update catatan
-        await layananCatatan.updateCatatan(dataCatatan.id, dataCatatan);
-      } else {
-        // Buat catatan baru
-        await layananCatatan.buatCatatan(dataCatatan);
-      }
-      await ambilSemuaCatatan();
-      setView('list');
-    } catch (err) {
-      setError('Gagal menyimpan catatan');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDeleteCatatan = async (id) => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
-      try {
-        setLoading(true);
-        await layananCatatan.hapusCatatan(id);
-        await ambilSemuaCatatan();
-      } catch (err) {
-        setError('Gagal menghapus catatan');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  const handleEditCatatan = (selectedCatatan) => {
-    setActiveCatatan(selectedCatatan);
-    setView('edit');
-  };
-
-  const renderContent = () => {
-    if (loading) {
-      return (
-        <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div className="flex justify-center items-center h-screen">
-          <div className="text-red-500">{error}</div>
-        </div>
-      );
-    }
-
-    switch (view) {
-      case 'new':
-        return <NoteForm onSave={handleSaveCatatan} onCancel={handleViewNotes} />;
-      case 'edit':
-        return <NoteForm initialCatatan={activeCatatan} onSave={handleSaveCatatan} onCancel={handleViewNotes} />;
-      case 'list':
-      default:
-        return (
-          <NoteList 
-            catatan={catatan} 
-            onSelect={handleSelectCatatan} 
-            onEdit={handleEditCatatan} 
-            onDelete={handleDeleteCatatan} 
-          />
-        );
-    }
-  };
+const App = () => {
+  const token = localStorage.getItem("token");
 
   return (
-    <div className="flex min-h-screen bg-white">
-      <Sidebar 
-        onNewNote={handleNewNote} 
-        onViewNotes={handleViewNotes} 
-        activeView={view === 'new' ? 'new' : 'list'} 
-      />
-      <main className="flex-1 overflow-y-auto">
-        {renderContent()}
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/login" />} />
+      {/* Optional: fallback 404 */}
+      <Route path="*" element={<div className="p-8 text-center text-xl">404 Not Found</div>} />
+    </Routes>
   );
-}
+};
 
 export default App;

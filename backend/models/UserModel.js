@@ -1,18 +1,16 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-const Note = db.define(
-    "note", {
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    content: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-}, {
-    timestamps: true, 
+const User = db.define("users", {
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
-export default Note;
+export default User;

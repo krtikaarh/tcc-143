@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App'; // ini akan diganti menjadi Routes
 import './index.css';
-import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App /> {/* App berisi semua Routes */}
+    </BrowserRouter>
   </React.StrictMode>
 );
