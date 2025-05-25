@@ -5,7 +5,7 @@ import { verifyToken } from "../middleware/VerifyToken.js";
 const router = express.Router();
 
 // Semua route notes dilindungi oleh verifyToken
-router.get("/notes", NotesController.getAllNotes);
+router.get("/notes", verifyToken, NotesController.getAllNotes);
 router.get("/notes/:id", verifyToken, NotesController.getNote);
 router.post("/notes", verifyToken, NotesController.createNote);
 router.put("/notes/:id", verifyToken, NotesController.updateNote);

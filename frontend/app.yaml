@@ -3,12 +3,22 @@ service: tgs7-fe  # ganti nama service kalau mau
 instance_class: F1
 
 handlers:
-  - url: /
-    static_files: build/index.html
-    upload: build/index.html
+- url: /static
+  static_dir: build/static
 
-  - url: /(.*)
-    static_files: build/\1
-    upload: build/(.*)
+- url: /(.*\.(json|ico|js|txt))$
+  static_files: build/\1
+  upload: build/.*\.(json|ico|js|txt)$
 
-default_expiration: "1h"
+- url: /.*
+  static_files: build/index.html
+  upload: build/index.html
+
+# Environment variables
+env_variables:
+  REACT_APP_API_URL: "https://notes-143-be-353267785618.us-central1.run.app/api"
+
+# Automatic scaling
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10

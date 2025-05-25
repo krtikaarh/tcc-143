@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const NoteFrom = ({ initialCatatan, onSave, onCancel }) => {
+const NoteForm = ({ initialCatatan, onSave, onCancel }) => {
   const [catatan, setCatatan] = useState({ title: '', content: '' });
 
   useEffect(() => {
@@ -53,4 +53,4 @@ const NoteFrom = ({ initialCatatan, onSave, onCancel }) => {
   );
 };
 
-export default NoteFrom;
+export default NoteForm;
